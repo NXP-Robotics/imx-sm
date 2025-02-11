@@ -41,6 +41,7 @@ INCLUDE +=  \
 	-I$(BOARD_DIR)  \
 	-I$(BOARD_DIR)/sm \
 	-I$(COMPONENTS_DIR)/pcal6408a  \
+	-I$(COMPONENTS_DIR)/pcal6416a  \
 	-I$(COMPONENTS_DIR)/pf09  \
 	-I$(COMPONENTS_DIR)/pf53  \
 	-I$(COMPONENTS_DIR)/pca2131
@@ -51,6 +52,7 @@ VPATH +=  \
 	$(BOARD_DIR)  \
 	$(BOARD_DIR)/sm  \
 	$(COMPONENTS_DIR)/pcal6408a  \
+	$(COMPONENTS_DIR)/pcal6416a  \
 	$(COMPONENTS_DIR)/pf09  \
 	$(COMPONENTS_DIR)/pf53  \
 	$(COMPONENTS_DIR)/pca2131
@@ -64,6 +66,7 @@ OBJS += \
 	$(OUT)/brd_sm_voltage.o  \
 	$(OUT)/brd_sm_bbm.o  \
 	$(OUT)/fsl_pcal6408a.o  \
+	$(OUT)/fsl_pcal6416a.o  \
 	$(OUT)/fsl_pf09.o  \
 	$(OUT)/fsl_pf53.o  \
 	$(OUT)/fsl_pca2131.o
