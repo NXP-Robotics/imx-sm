@@ -52,15 +52,15 @@
 
 #include "sm.h"
 #include "dev_sm.h"
-#include "fsl_pcal6408a.h"
+#include "fsl_pcal6416a.h"
 #include "fsl_pf09.h"
 #include "fsl_pf53.h"
 #include "fsl_pca2131.h"
 
 /* Defines */
 
-/*! Initial PCAL6408A interrupt mask */
-#define PCAL6408A_INITIAL_MASK  0xF7U
+/*! Initial PCAL6416A interrupt mask */
+#define PCAL6416A_INITIAL_MASK  0xFFFFU
 
 /*! Number of board IRQs participating dynamic prioritization */
 #define BOARD_NUM_IRQ_PRIO_IDX                 1U
@@ -71,9 +71,6 @@
 /* Types */
 
 /* External variables */
-
-/*! Handle to access PCAL6408A */
-extern PCAL6408A_Type g_pcal6408aDev;
 
 /*! Handle to access PF09 */
 extern PF09_Type g_pf09Dev;

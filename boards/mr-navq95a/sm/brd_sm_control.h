@@ -60,9 +60,6 @@
  */
 #define SM_CONTROLSET          BRD_SM_ControlSet          /*!< Control set */
 #define SM_CONTROLGET          BRD_SM_ControlGet          /*!< Control get */
-#define SM_CONTROLEXTSET       BRD_SM_ControlExtSet       /*!< Extended control set */
-#define SM_CONTROLEXTGET       BRD_SM_ControlExtGet       /*!< Extended control get */
-#define SM_CONTROLACTION       BRD_SM_ControlAction       /*!< Control action */
 #define SM_CONTROLFLAGSSET     BRD_SM_ControlFlagsSet     /*!< Control flags */
 /** @} */
 
@@ -71,20 +68,6 @@
 
 /*! Total number of controls */
 #define SM_NUM_CTRL  (DEV_SM_NUM_CTRL + BRD_SM_NUM_CTRL)
-
-/*!
- * @name BRD_SM control domain indexes
- */
-/** @{ */
-#define BRD_SM_CTRL_SD3_WAKE    (DEV_SM_NUM_CTRL + 0U)  /*!< PCAL6408A-0 */
-#define BRD_SM_CTRL_PCIE1_WAKE  (DEV_SM_NUM_CTRL + 1U)  /*!< PCAL6408A-4 */
-#define BRD_SM_CTRL_BT_WAKE     (DEV_SM_NUM_CTRL + 2U)  /*!< PCAL6408A-5 */
-#define BRD_SM_CTRL_PCIE2_WAKE  (DEV_SM_NUM_CTRL + 3U)  /*!< PCAL6408A-6 */
-#define BRD_SM_CTRL_BUTTON      (DEV_SM_NUM_CTRL + 4U)  /*!< PCAL6408A-7 */
-#define BRD_SM_CTRL_TEST        (DEV_SM_NUM_CTRL + 5U)  /*!< Test */
-#define BRD_SM_CTRL_PCA2131     (DEV_SM_NUM_CTRL + 6U)  /*!< PCA2131 raw access */
-#define BRD_SM_CTRL_TEST_A      (DEV_SM_NUM_CTRL + 7U)  /*!< Test action */
-/** @} */
 
 /* Types */
 
