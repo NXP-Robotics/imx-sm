@@ -48,7 +48,7 @@
 
 /* I2C device addresses */
 #define BOARD_PF09_DEV_ADDR         0x08U
-#define BOARD_PCAL6408A_DEV_ADDR    0x20U
+#define BOARD_PCAL6416A_DEV_ADDR    0x20U
 #define BOARD_PF5301_DEV_ADDR       0x2AU
 #define BOARD_PF5302_DEV_ADDR       0x29U
 #define BOARD_PCA2131_DEV_ADDR      0x53U
@@ -64,7 +64,7 @@
 
 /* Global variables */
 
-PCAL6408A_Type g_pcal6408aDev;
+PCAL6416A_Type pcal6416aDev;
 PF09_Type g_pf09Dev;
 PF53_Type g_pf5301Dev;
 PF53_Type g_pf5302Dev;
@@ -96,26 +96,35 @@ int32_t BRD_SM_SerialDevicesInit(void)
 {
     int32_t status = SM_ERR_SUCCESS;
     LPI2C_Type *const s_i2cBases[] = LPI2C_BASE_PTRS;
-    pcal6408a_config_t pcal6408Config;
 
-    /* Fill in PCAL6408A dev */
-    g_pcal6408aDev.i2cBase = s_i2cBases[BOARD_I2C_INSTANCE];
-    g_pcal6408aDev.devAddr = BOARD_PCAL6408A_DEV_ADDR;
+    pcal6416a_config_t pcal6416Config;
+
+    /* Fill in PCAL6416A dev */
+    pcal6416aDev.i2cBase = s_i2cBases[BOARD_I2C_INSTANCE];
+    pcal6416aDev.devAddr = BOARD_PCAL6416A_DEV_ADDR;
 
     /* Init the bus expander */
-    PCAL6408A_GetDefaultConfig(&pcal6408Config);
-    pcal6408Config.inputLatch = 0xFFU;
-    if (!PCAL6408A_Init(&g_pcal6408aDev, &pcal6408Config))
+    PCAL6416A_GetDefaultConfig(&pcal6416Config);
+    pcal6416Config.inputLatch = 0xFFFF;
+    pcal6416Config.direction = 0x1FFF; /* All inputs except reset_io[234] */
+    
+    status = PCAL6416A_Init(&pcal6416aDev, &pcal6416Config) ? SM_ERR_SUCCESS : SM_ERR_HARDWARE_ERROR;
+    if (status == SM_ERR_SUCCESS)
     {
-        status = SM_ERR_HARDWARE_ERROR;
+        status = PCAL6416A_IntMaskSet(&pcal6416aDev, PCAL6416A_INITIAL_MASK) ? SM_ERR_SUCCESS : SM_ERR_HARDWARE_ERROR;
     }
-    else
+
+    if (status == SM_ERR_SUCCESS)
     {
-        if (!PCAL6408A_IntMaskSet(&g_pcal6408aDev, PCAL6408A_INITIAL_MASK))
-        {
-            status = SM_ERR_HARDWARE_ERROR;
-        }
+        /* enable i/o expanders */
+        status = PCAL6416A_OutputSet(&pcal6416aDev, 0xE000) ? SM_ERR_SUCCESS : SM_ERR_HARDWARE_ERROR; 
     }
+
+    uint16_t io;
+    PCAL6416A_InputGet(&pcal6416aDev, &io);
+    printf("pcal6416a input  values: 0x%04x\n", io);
+    PCAL6416A_OutputGet(&pcal6416aDev, &io);
+    printf("pcal6416a output values: 0x%04x\n", io);
 
     if (status == SM_ERR_SUCCESS)
     {
@@ -278,23 +287,6 @@ int32_t BRD_SM_SerialDevicesInit(void)
 int32_t BRD_SM_BusExpMaskSet(uint8_t val, uint8_t mask)
 {
     int32_t status = SM_ERR_SUCCESS;
-    static uint8_t cachedMask = PCAL6408A_INITIAL_MASK;
-    uint8_t newMask = (cachedMask & ~mask);
-
-    newMask |= val;
-
-    /* Mask changed? */
-    if (cachedMask != newMask)
-    {
-        if (PCAL6408A_IntMaskSet(&g_pcal6408aDev, newMask))
-        {
-            cachedMask = newMask;
-        }
-        else
-        {
-            status = SM_ERR_HARDWARE_ERROR;
-        }
-    }
 
     /* Return status */
     return status;
@@ -306,43 +298,12 @@ int32_t BRD_SM_BusExpMaskSet(uint8_t val, uint8_t mask)
 void GPIO1_0_IRQHandler(void)
 {
     uint32_t flags;
-    uint8_t status, val;
 
     /* Get GPIO status */
     flags = RGPIO_GetPinsInterruptFlags(GPIO1, kRGPIO_InterruptOutput0);
 
-    /* Get PCAL6408A status */
-    (void) PCAL6408A_IntStatusGet(&g_pcal6408aDev, &status);
-
-    /* Get value and Clear PCAL6408A interrupts */
-    (void) PCAL6408A_InputGet(&g_pcal6408aDev, &val);
-
     /* Clear GPIO interrupts */
     RGPIO_ClearPinsInterruptFlags(GPIO1, kRGPIO_InterruptOutput0, flags);
-
-    /* Handle PF09 interrupt */
-    if ((status & BIT8(PCAL6408A_INPUT_PF09_INT)) != 0U)
-    {
-        /* Asserts low */
-        if ((val & BIT8(PCAL6408A_INPUT_PF09_INT)) == 0U)
-        {
-            BRD_SM_Pf09Handler();
-        }
-    }
-
-    /* Handle PCA2131 interrupt */
-    if (g_pca2131Used && ((status & BIT8(PCAL6408A_INPUT_PCA2131_INT))
-        != 0U))
-    {
-        /* Asserts low */
-        if ((val & BIT8(PCAL6408A_INPUT_PCA2131_INT)) == 0U)
-        {
-            BRD_SM_BbmHandler();
-        }
-    }
-
-    /* Handle controls interrupts */
-    BRD_SM_ControlHandler(status, val);
 
     /* Adjust dynamic IRQ priority */
     (void) DEV_SM_IrqPrioUpdate();
