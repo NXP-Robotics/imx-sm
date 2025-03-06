@@ -6,6 +6,7 @@
 
 #include "pin_mux.h"
 #include "board.h"
+#include "fsl_rgpio.h"
 
 #define IOMUXC_GPR0_ADDRESS 0x443d0000
 
@@ -71,5 +72,20 @@ void BOARD_InitPins(void)
     /* Configure GPIO1-10 (INT from the PCAL6408A) */
     IOMUXC_SetPinMux(IOMUXC_PAD_PDM_BIT_STREAM1__GPIO1_IO_BIT10, 0U);
     IOMUXC_SetPinConfig(IOMUXC_PAD_PDM_BIT_STREAM1__GPIO1_IO_BIT10, 0U);
+
+    /* Set GPIO_IO24 in correct states for Startup */
+    IOMUXC_SetPinMux(IOMUXC_PAD_GPIO_IO24__GPIO2_IO_BIT24, 0U);
+    IOMUXC_SetPinConfig(IOMUXC_PAD_GPIO_IO24__GPIO2_IO_BIT24,
+    IOMUXC_PAD_DSE(0xFU) | IOMUXC_PAD_PU(0x1U));
+
+    rgpio_pin_config_t gpioConfig =
+    {
+        kRGPIO_DigitalOutput,
+        1U
+    };
+
+    /* Init GPIO2-24 */
+    RGPIO_PinInit(GPIO2, 24U, &gpioConfig);
+
 }
 
