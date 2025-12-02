@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **
-** Copyright 2025 NXP
+** Copyright 2023-2024 NXP
 **
 ** Redistribution and use in source and binary forms, with or without modification,
 ** are permitted provided that the following conditions are met:
@@ -69,6 +69,7 @@
         .clkPerms[DEV_SM_CLK_CAN1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_CAN2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_CAN3] = SM_SCMI_PERM_ALL, \
+        .clkPerms[DEV_SM_CLK_FLEXIO1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_FLEXSPI1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_I3C1SLOW] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_I3C1] = SM_SCMI_PERM_ALL, \
@@ -88,6 +89,36 @@
         .daisyPerms[DEV_SM_DAISY_CAN1_RX] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_CAN2_RX] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_CAN3_RX] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_0] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_10] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_11] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_12] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_13] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_14] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_15] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_16] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_17] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_18] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_19] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_1] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_20] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_21] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_22] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_23] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_24] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_25] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_26] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_27] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_2] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_30] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_31] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_3] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_4] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_5] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_6] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_7] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_8] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_FLEXIO1_9] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_FLEXSPI1_0] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_FLEXSPI1_1] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_FLEXSPI1_2] = SM_SCMI_PERM_ALL, \
@@ -316,7 +347,6 @@
         .clkPerms[DEV_SM_CLK_EXT2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_EXT] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_EXT_GPR_SEL] = SM_SCMI_PERM_ALL, \
-        .clkPerms[DEV_SM_CLK_FLEXIO1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_FLEXIO2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_GPU_CGC] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_HSIOPCIEAUX] = SM_SCMI_PERM_ALL, \
@@ -327,6 +357,7 @@
         .clkPerms[DEV_SM_CLK_LDBPLL] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LDBPLL_VCO] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPI2C3] = SM_SCMI_PERM_ALL, \
+        .clkPerms[DEV_SM_CLK_LPI2C4] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPI2C5] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPI2C7] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPI2C8] = SM_SCMI_PERM_ALL, \
@@ -374,40 +405,12 @@
         .ctrlPerms[DEV_SM_CTRL_SAI5_MCLK] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_EARC_PHY_SPDIF] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_EXT1_CLK] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_0] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_10] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_11] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_12] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_13] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_14] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_15] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_16] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_17] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_18] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_19] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_1] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_20] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_21] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_22] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_23] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_24] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_25] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_26] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_27] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_2] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_30] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_31] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_3] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_4] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_5] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_6] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_7] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_8] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_FLEXIO1_9] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_I3C2_SCL] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_I3C2_SDA] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPI2C3_SCL] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPI2C3_SDA] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_LPI2C4_SCL] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_LPI2C4_SDA] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPI2C5_SCL] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPI2C5_SDA] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPI2C7_SCL] = SM_SCMI_PERM_ALL, \
@@ -544,6 +547,8 @@
         .pinPerms[DEV_SM_PIN_GPIO_IO19] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_GPIO_IO28] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_GPIO_IO29] = SM_SCMI_PERM_ALL, \
+        .pinPerms[DEV_SM_PIN_GPIO_IO30] = SM_SCMI_PERM_ALL, \
+        .pinPerms[DEV_SM_PIN_GPIO_IO31] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_GPIO_IO32] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_GPIO_IO33] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_GPIO_IO34] = SM_SCMI_PERM_ALL, \

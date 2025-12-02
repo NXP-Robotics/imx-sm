@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **
-** Copyright 2025 NXP
+** Copyright 2023-2024 NXP
 **
 ** Redistribution and use in source and binary forms, with or without modification,
 ** are permitted provided that the following conditions are met:
@@ -1185,8 +1185,8 @@
         SM_CFG_W1(0x0001065cU), 0x99999999U, \
         SM_CFG_W1(0x00010660U), 0x00909099U, \
         SM_CFG_W1(0x00010664U), 0x00000990U, \
-        SM_CFG_W1(0x00010668U), 0x99909990U, \
-        SM_CFG_W1(0x0001066cU), 0x00990909U, \
+        SM_CFG_W1(0x00010668U), 0x99999990U, \
+        SM_CFG_W1(0x0001066cU), 0x00900909U, \
         SM_CFG_W1(0x00010670U), 0x99900000U, \
         SM_CFG_W1(0x00010674U), 0x99909999U, \
         SM_CFG_W1(0x00010678U), 0x00009099U, \
@@ -1198,7 +1198,7 @@
         SM_CFG_W1(0x00010860U), 0x00090000U, \
         SM_CFG_W1(0x00010864U), 0x99999009U, \
         SM_CFG_W1(0x00010868U), 0x00090009U, \
-        SM_CFG_W1(0x0001086cU), 0x09009090U, \
+        SM_CFG_W1(0x0001086cU), 0x09099090U, \
         SM_CFG_W1(0x00010870U), 0x00000009U, \
         SM_CFG_W1(0x00010874U), 0x00090000U, \
         SM_CFG_W1(0x00010878U), 0x00090900U, \
