@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **
-** Copyright 2025 NXP
+** Copyright 2023-2024 NXP
 **
 ** Redistribution and use in source and binary forms, with or without modification,
 ** are permitted provided that the following conditions are met:
@@ -122,7 +122,7 @@
 #define SM_LM_NUM_SEENV  1U
 
 /*! Config name */
-#define SM_LM_CFG_NAME  "mr-navq95b"
+#define SM_LM_CFG_NAME  "temp"
 
 /*! Default LM for monitor */
 #define SM_LM_DEFAULT  2U

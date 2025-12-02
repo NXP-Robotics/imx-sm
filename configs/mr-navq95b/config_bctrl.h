@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **
-** Copyright 2025 NXP
+** Copyright 2023-2024 NXP
 **
 ** Redistribution and use in source and binary forms, with or without modification,
 ** are permitted provided that the following conditions are met:
@@ -79,13 +79,13 @@
 #define SM_BCTRL_W_CONFIG \
     { \
         SM_CFG_W1(0x0000002CU), 0x00000080U, \
-        SM_CFG_W1(0x00000030U), 0xFB83ED70U, \
-        SM_CFG_W1(0x00000034U), 0xFB83ED70U, \
-        SM_CFG_W1(0x00000038U), 0xFB83ED70U, \
-        SM_CFG_W1(0x0000003CU), 0xFB83ED70U, \
-        SM_CFG_W1(0x00000040U), 0xFB83ED70U, \
-        SM_CFG_W1(0x00000044U), 0xFB83ED70U, \
-        SM_CFG_W1(0x00000048U), 0x847C1283U, \
+        SM_CFG_W1(0x00000030U), 0xFB83EDE0U, \
+        SM_CFG_W1(0x00000034U), 0xFB83EDE0U, \
+        SM_CFG_W1(0x00000038U), 0xFB83EDE0U, \
+        SM_CFG_W1(0x0000003CU), 0xFB83EDE0U, \
+        SM_CFG_W1(0x00000040U), 0xFB83EDE0U, \
+        SM_CFG_W1(0x00000044U), 0xFB83EDE0U, \
+        SM_CFG_W1(0x00000048U), 0x847C1293U, \
         SM_CFG_W1(0x00000050U), 0x00000001U, \
         SM_CFG_W1(0x00000054U), 0x00000001U, \
         SM_CFG_W1(0x00000058U), 0x00000001U, \
