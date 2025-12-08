@@ -80,6 +80,7 @@
         .clkPerms[DEV_SM_CLK_LPSPI8] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPTMR1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPTMR2] = SM_SCMI_PERM_ALL, \
+        .clkPerms[DEV_SM_CLK_LPUART2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART5] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_M7SYSTICK] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_TPM4] = SM_SCMI_PERM_ALL, \
@@ -153,6 +154,7 @@
         .perlpiPerms[DEV_SM_PERLPI_CAN3] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_GPIO1] = SM_SCMI_PERM_NONE, \
         .perlpiPerms[DEV_SM_PERLPI_GPIO2] = SM_SCMI_PERM_NONE, \
+        .perlpiPerms[DEV_SM_PERLPI_LPUART2] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART5] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_WDOG5] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_CCM_CLKO2] = SM_SCMI_PERM_ALL, \
@@ -190,6 +192,8 @@
         .pinPerms[DEV_SM_PIN_SAI1_TXC] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SAI1_TXD0] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SAI1_TXFS] = SM_SCMI_PERM_ALL, \
+        .pinPerms[DEV_SM_PIN_UART2_RXD] = SM_SCMI_PERM_ALL, \
+        .pinPerms[DEV_SM_PIN_UART2_TXD] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_XSPI1_DATA0] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_XSPI1_DATA1] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_XSPI1_DATA2] = SM_SCMI_PERM_ALL, \
