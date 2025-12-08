@@ -339,10 +339,6 @@ static int32_t BRD_SM_SerialDevicesInWakeupDomainInit(void)
     pcal6416a_config_t pcal6416Config;
     uint16_t io;
 
-    /* Set iomux for I2C4 */
-    IOMUXC_SetPinMux(IOMUXC_PAD_GPIO_IO30__LPI2C4_SDA, 0U);
-    IOMUXC_SetPinMux(IOMUXC_PAD_GPIO_IO31__LPI2C4_SCL, 0U);
-
     /* Enable I2C4 */
     LPI2C_MasterGetDefaultConfig(&lpi2cConfig);
     lpi2cConfig.baudRate_Hz = BOARD_I2C_BAUDRATE;
