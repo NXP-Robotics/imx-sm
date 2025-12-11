@@ -66,7 +66,6 @@
         .secure = 0U, \
         .seenvId = 1U, \
         .buttonPerms[DEV_SM_BUTTON_0] = SM_SCMI_PERM_NOTIFY, \
-        .clkPerms[DEV_SM_CLK_CAN1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_CAN2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_CAN3] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_FLEXIO1] = SM_SCMI_PERM_ALL, \
@@ -87,7 +86,6 @@
         .clkPerms[DEV_SM_CLK_TPM5] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_TSTMR2] = SM_SCMI_PERM_ALL, \
         .cpuPerms[DEV_SM_CPU_M7P] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_CAN1_RX] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_CAN2_RX] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_CAN3_RX] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_FLEXIO1_0] = SM_SCMI_PERM_ALL, \
@@ -149,7 +147,6 @@
         .lmmPerms[2] = SM_SCMI_PERM_ALL, \
         .pdPerms[DEV_SM_PD_M7] = SM_SCMI_PERM_ALL, \
         .perfPerms[DEV_SM_PERF_M7] = SM_SCMI_PERM_ALL, \
-        .perlpiPerms[DEV_SM_PERLPI_CAN1] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_CAN2] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_CAN3] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_GPIO1] = SM_SCMI_PERM_NONE, \
@@ -186,8 +183,6 @@
         .pinPerms[DEV_SM_PIN_GPIO_IO31] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_I2C1_SCL] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_I2C1_SDA] = SM_SCMI_PERM_ALL, \
-        .pinPerms[DEV_SM_PIN_PDM_BIT_STREAM0] = SM_SCMI_PERM_ALL, \
-        .pinPerms[DEV_SM_PIN_PDM_CLK] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SAI1_RXD0] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SAI1_TXC] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SAI1_TXD0] = SM_SCMI_PERM_ALL, \
@@ -338,6 +333,7 @@
         .clkPerms[DEV_SM_CLK_AUDIOPLL2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_AUDIOPLL2_VCO] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_AUDIOXCVR] = SM_SCMI_PERM_ALL, \
+        .clkPerms[DEV_SM_CLK_CAN1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_CCMCKO1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_CCMCKO2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_CCMCKO3] = SM_SCMI_PERM_ALL, \
@@ -407,6 +403,7 @@
         .ctrlPerms[DEV_SM_CTRL_SAI3_MCLK] = SM_SCMI_PERM_ALL, \
         .ctrlPerms[DEV_SM_CTRL_SAI4_MCLK] = SM_SCMI_PERM_ALL, \
         .ctrlPerms[DEV_SM_CTRL_SAI5_MCLK] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_CAN1_RX] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_EARC_PHY_SPDIF] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_EXT1_CLK] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_I3C2_SCL] = SM_SCMI_PERM_ALL, \
@@ -502,6 +499,7 @@
         .perfPerms[DEV_SM_PERF_GPU] = SM_SCMI_PERM_ALL, \
         .perfPerms[DEV_SM_PERF_NPU] = SM_SCMI_PERM_ALL, \
         .perfPerms[DEV_SM_PERF_VPU] = SM_SCMI_PERM_ALL, \
+        .perlpiPerms[DEV_SM_PERLPI_CAN1] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_GPIO2] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_GPIO3] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_GPIO4] = SM_SCMI_PERM_ALL, \
@@ -559,6 +557,8 @@
         .pinPerms[DEV_SM_PIN_GPIO_IO35] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_GPIO_IO36] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_GPIO_IO37] = SM_SCMI_PERM_ALL, \
+        .pinPerms[DEV_SM_PIN_PDM_BIT_STREAM0] = SM_SCMI_PERM_ALL, \
+        .pinPerms[DEV_SM_PIN_PDM_CLK] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SD1_CLK] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SD1_CMD] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_SD1_DATA0] = SM_SCMI_PERM_ALL, \
