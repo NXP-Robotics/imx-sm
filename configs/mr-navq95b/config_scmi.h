@@ -587,7 +587,7 @@
         .pinPerms[DEV_SM_PIN_SD3_DATA3] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_UART1_RXD] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_UART1_TXD] = SM_SCMI_PERM_ALL, \
-        .rtcPerms[BRD_SM_RTC_PCA2131] = SM_SCMI_PERM_PRIV, \
+        .rtcPerms[BRD_SM_RTC_PCA2131] = SM_SCMI_PERM_ALL, \
         .rtcPerms[DEV_SM_RTC_BBNSM] = SM_SCMI_PERM_ALL, \
         .sensorPerms[BRD_SM_SENSOR_TEMP_PF09] = SM_SCMI_PERM_ALL, \
         .sensorPerms[BRD_SM_SENSOR_TEMP_PF5301] = SM_SCMI_PERM_SET, \
