@@ -143,7 +143,7 @@
 /*--------------------------------------------------------------------------*/
 
 /*! Config for number of tests */
-#define SM_SCMI_NUM_TEST  35U
+#define SM_SCMI_NUM_TEST  34U
 
 /*! Config data array for tests */
 #define SM_SCMI_TEST_CONFIG_DATA \
@@ -180,8 +180,7 @@
     {.testId = TEST_PERF, .channel = 5U, .rsrc = DEV_SM_PERF_NPU}, \
     {.testId = TEST_PERF, .channel = 5U, .rsrc = DEV_SM_PERF_VPU}, \
     {.testId = TEST_PIN, .channel = 5U, .rsrc = DEV_SM_PIN_UART1_RXD}, \
-    {.testId = TEST_RTC, .channel = 5U, .rsrc = DEV_SM_RTC_BBNSM}, \
-    {.testId = TEST_SENSOR, .channel = 0U, .rsrc = DEV_SM_SENSOR_TEMP_ANA}
+    {.testId = TEST_RTC, .channel = 5U, .rsrc = DEV_SM_RTC_BBNSM}
 
 /*! Default channel for non-agent specific tests */
 #define SM_TEST_DEFAULT_CHN  0U
