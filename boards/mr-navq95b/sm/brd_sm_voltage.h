@@ -1,7 +1,7 @@
 /*
 ** ###################################################################
 **
-**     Copyright 2023-2024 NXP
+**     Copyright 2023-2025 NXP
 **
 **     Redistribution and use in source and binary forms, with or without modification,
 **     are permitted provided that the following conditions are met:
@@ -206,6 +206,15 @@ void BRD_SM_VoltageSuspend(bool offArm);
  * This function writes the last set voltage levels back to the PMICs.
  */
 void BRD_SM_VoltageRestore(void);
+
+/*!
+ * Get the ARM voltage mode.
+ *
+ * This function return the PF5302(ARM supply) mode.
+ *
+ * @return Returns the voltage mode.
+ */
+uint32_t BRD_SM_ArmVoltModeGet(void);
 
 #endif /* BRD_SM_VOLTAGE_H */
 

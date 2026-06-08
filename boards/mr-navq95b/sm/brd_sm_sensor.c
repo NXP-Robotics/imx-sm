@@ -168,7 +168,16 @@ int32_t BRD_SM_SensorReadingGet(uint32_t sensorId, int64_t *sensorValue,
                         rc = PF09_TempGet(&g_pf09Dev, &temp);
                         break;
                     case BRD_SM_SENSOR_TEMP_PF5301:
-                        rc = PF53_TempGet(&g_pf5301Dev, &temp);
+                        /* Check the ARM voltage mode first */
+                        if (BRD_SM_ArmVoltModeGet() == DEV_SM_VOLT_MODE_ON)
+                        {
+                            rc = PF53_TempGet(&g_pf5301Dev, &temp);
+                        }
+                        else
+                        {
+                            /* Set the status */
+                            rc = false;
+                        }
                         break;
                     default:
                         rc = PF53_TempGet(&g_pf5302Dev, &temp);
@@ -305,8 +314,27 @@ int32_t BRD_SM_SensorEnable(uint32_t sensorId, bool enable,
             }
             else
             {
-                /* Record sensor enable */
-                sensorEnb[brdSensorId] = enable;
+                if ((brdSensorId == (BRD_SM_SENSOR_TEMP_PF5301
+                    - DEV_SM_NUM_SENSOR)) && enable)
+                {
+                    /* ARM volt mode enabled ? */
+                    if (BRD_SM_ArmVoltModeGet() == DEV_SM_VOLT_MODE_ON)
+                    {
+                        /* Record sensor enable */
+                        sensorEnb[BRD_SM_SENSOR_TEMP_PF5301 - DEV_SM_NUM_SENSOR]
+                            = enable;
+                    }
+                    else
+                    {
+                        /* Set the status if not enabled */
+                        status = SM_ERR_POWER;
+                    }
+                }
+                else
+                {
+                    /* Record sensor enable */
+                    sensorEnb[brdSensorId] = enable;
+                }
 
                 /* Disable alarm */
                 if ((sensorId == BRD_SM_SENSOR_TEMP_PF09)
@@ -351,8 +379,19 @@ int32_t BRD_SM_SensorIsEnabled(uint32_t sensorId, bool *enabled,
             uint32_t brdSensorId = sensorId - DEV_SM_NUM_SENSOR;
 
             /* Return sensor enable */
-            *enabled = sensorEnb[brdSensorId];
-            *timestampReporting = false;
+            if (brdSensorId == (BRD_SM_SENSOR_TEMP_PF5301
+                - DEV_SM_NUM_SENSOR))
+            {
+                *enabled = (BRD_SM_ArmVoltModeGet() == DEV_SM_VOLT_MODE_ON)
+                    && sensorEnb[BRD_SM_SENSOR_TEMP_PF5301
+                        - DEV_SM_NUM_SENSOR];
+                *timestampReporting = false;
+            }
+            else
+            {
+                *enabled = sensorEnb[brdSensorId];
+                *timestampReporting = false;
+            }
         }
     }
     else
