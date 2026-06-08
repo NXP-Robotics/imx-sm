@@ -218,48 +218,67 @@ int32_t BRD_SM_BbmRtcTimeSet(uint32_t rtcId, uint64_t val, bool ticks)
             sec64 = val / 100U;
             hun64 = val - (sec64 * 100U);
 
-            secs = U64_U32(sec64);
-            hun = U64_U32(hun64);
-        }
-        else
-        {
-            hun = 0U;
-            secs = U64_U32(val);
-        }
-
-        /* Calculate totals */
-        mins = secs / 60U;
-        hours = secs / 3600U;
-        days = secs / 86400U;
-
-        /* Calculate time */
-        sec = secs % 60U;
-        min = mins % 60U;
-        hour = hours % 24U;
-
-        /* Convert to date */
-        if (days2date(days, &year, &month, &day, &weekday)
-            && (year <= 2069U))
-        {
-            /* Convert year */
-            year %= 100U;
-
-            /* Write RTC */
-            if (!PCA2131_RtcSet(&g_pca2131Dev, year, month, day, hour,
-                min, sec, hun, weekday))
+            /* Check range */
+            if (BITS_FIT_IN_MASK(val, 0xFFFFFFFFULL) != 0U)
             {
-                status = SM_ERR_HARDWARE_ERROR;
+                secs = U64_U32(sec64);
+                hun = U64_U32(hun64);
+            }
+            else
+            {
+                status = SM_ERR_INVALID_PARAMETERS;
             }
         }
         else
         {
-            status = SM_ERR_INVALID_PARAMETERS;
+            /* Check allowed range */
+            if (BITS_FIT_IN_MASK(val, 0xFFFFFFFFULL) != 0U)
+            {
+                hun = 0U;
+                secs = U64_U32(val);
+            }
+            else
+            {
+                status = SM_ERR_INVALID_PARAMETERS;
+            }
         }
 
         if (status == SM_ERR_SUCCESS)
         {
-            /* Enable battery */
-            (void) PCA2131_PowerModeSet(&g_pca2131Dev, 0U);
+            /* Calculate totals */
+            mins = secs / 60U;
+            hours = secs / 3600U;
+            days = secs / 86400U;
+
+            /* Calculate time */
+            sec = secs % 60U;
+            min = mins % 60U;
+            hour = hours % 24U;
+
+            /* Convert to date */
+            if (days2date(days, &year, &month, &day, &weekday)
+                && (year <= 2069U))
+            {
+                /* Convert year */
+                year %= 100U;
+
+                /* Write RTC */
+                if (!PCA2131_RtcSet(&g_pca2131Dev, year, month, day, hour,
+                    min, sec, hun, weekday))
+                {
+                    status = SM_ERR_HARDWARE_ERROR;
+                }
+            }
+            else
+            {
+                status = SM_ERR_INVALID_PARAMETERS;
+            }
+
+            if (status == SM_ERR_SUCCESS)
+            {
+                /* Enable battery */
+                (void) PCA2131_PowerModeSet(&g_pca2131Dev, 0U);
+            }
         }
     }
 
@@ -405,51 +424,62 @@ int32_t BRD_SM_BbmRtcAlarmSet(uint32_t rtcId, bool enable, uint64_t val)
             uint32_t year, month, day, hour, min, sec, weekday;
             uint32_t days, hours, mins, secs;
 
-            /* Convert to seconds */
-            secs = U64_U32(val);
-
-            /* Calculate totals */
-            mins = secs / 60U;
-            hours = secs / 3600U;
-            days = secs / 86400U;
-
-            /* Calculate time */
-            sec = secs % 60U;
-            min = mins % 60U;
-            hour = hours % 24U;
-
-            /* Convert to date */
-            if (days2date(days, &year, &month, &day, &weekday)
-                && (year <= 2069U))
+            /* Check range */
+            if (BITS_FIT_IN_MASK(val, 0xFFFFFFFFULL) != 0U)
             {
-                /* Convert year */
-                year %= 100U;
-
-                /* Write to RTC */
-                if (PCA2131_AlarmSet(&g_pca2131Dev, day, hour, min, sec,
-                    weekday))
-                {
-                    /* Enable interrupt */
-                    if (PCA2131_IntEnable(&g_pca2131Dev, true))
-                    {
-                        /* Enable bus expander interrupt */
-                        status = BRD_SM_BusExpMaskSet(0U, BIT8(6));
-                    }
-                    else
-                    {
-                        status = SM_ERR_HARDWARE_ERROR;
-                    }
-                }
+                /* Convert to seconds */
+                secs = U64_U32(val);
             }
             else
             {
                 status = SM_ERR_INVALID_PARAMETERS;
             }
 
-            /* Track if enabled for PCA2131 use */
             if (status == SM_ERR_SUCCESS)
             {
-                g_pca2131Used = true;
+                /* Calculate totals */
+                mins = secs / 60U;
+                hours = secs / 3600U;
+                days = secs / 86400U;
+
+                /* Calculate time */
+                sec = secs % 60U;
+                min = mins % 60U;
+                hour = hours % 24U;
+
+                /* Convert to date */
+                if (days2date(days, &year, &month, &day, &weekday)
+                    && (year <= 2069U))
+                {
+                    /* Convert year */
+                    year %= 100U;
+
+                    /* Write to RTC */
+                    if (PCA2131_AlarmSet(&g_pca2131Dev, day, hour, min, sec,
+                        weekday))
+                    {
+                        /* Enable interrupt */
+                        if (PCA2131_IntEnable(&g_pca2131Dev, true))
+                        {
+                            /* Enable bus expander interrupt */
+                            status = BRD_SM_BusExpMaskSet(0U, BIT8(6));
+                        }
+                        else
+                        {
+                            status = SM_ERR_HARDWARE_ERROR;
+                        }
+                    }
+                }
+                else
+                {
+                    status = SM_ERR_INVALID_PARAMETERS;
+                }
+
+                /* Track if enabled for PCA2131 use */
+                if (status == SM_ERR_SUCCESS)
+                {
+                    g_pca2131Used = true;
+                }
             }
         }
         else
@@ -668,7 +698,7 @@ static bool date2days(uint32_t year, uint32_t month, uint32_t day,
     /*
      * False Positive: The value of variable year cann't be zero
      */
-    // coverity[cert_int30_c_violation:FALSE]
+    /* coverity[cert_int30_c_violation:FALSE] */
     newYear = year - ((month <= 2U) ? 1U : 0U);
 
     /* Calculate era */
@@ -695,7 +725,7 @@ static bool date2days(uint32_t year, uint32_t month, uint32_t day,
          * False Positive: moy value will range 1 <=moy <= 12.
          * Hence, the multiplication with 153 cann't overflow
          */
-        // coverity[cert_int30_c_violation:FALSE]
+        /* coverity[cert_int30_c_violation:FALSE] */
         uint32_t doy = (((153U * moy) + 2U) / 5U) + (day - 1U);
 
         /*
@@ -703,7 +733,7 @@ static bool date2days(uint32_t year, uint32_t month, uint32_t day,
          * less than 400.
          * Hence, the multiplication with 365 cann't overflow
          */
-        // coverity[cert_int30_c_violation:FALSE]
+        /* coverity[cert_int30_c_violation:FALSE] */
         uint32_t doe = (yoe * 365U) + (yoe / 4U) - (yoe / 100U) + doy;
 
         /*
@@ -711,7 +741,7 @@ static bool date2days(uint32_t year, uint32_t month, uint32_t day,
          * The newYear variable will range from 1970 <= newYear <= 2070.
          * Hence, the multiplication can't overflow.
          */
-        // coverity[cert_int30_c_violation:FALSE]
+        /* coverity[cert_int30_c_violation:FALSE] */
         *days = (era * 146097U) + doe - 719468U;
     }
 

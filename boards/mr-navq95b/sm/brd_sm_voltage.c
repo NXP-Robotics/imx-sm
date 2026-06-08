@@ -563,3 +563,12 @@ void BRD_SM_VoltageRestore(void)
     }
 }
 
+/*--------------------------------------------------------------------------*/
+/* Return the ARM volt mode                                                 */
+/*--------------------------------------------------------------------------*/
+uint32_t BRD_SM_ArmVoltModeGet(void)
+{
+    /* Return status */
+    return s_modeArm;
+}
+
