@@ -150,6 +150,7 @@
         .fusaPerms = SM_SCMI_PERM_ALL, \
         .lmmPerms[2] = SM_SCMI_PERM_ALL, \
         .pdPerms[DEV_SM_PD_M7] = SM_SCMI_PERM_ALL, \
+        .pdPerms[DEV_SM_PD_NETC] = SM_SCMI_PERM_ALL, \
         .perfPerms[DEV_SM_PERF_M7] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_CAN2] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_CAN3] = SM_SCMI_PERM_ALL, \
