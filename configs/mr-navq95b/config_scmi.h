@@ -520,6 +520,7 @@
         .perlpiPerms[DEV_SM_PERLPI_WDOG3] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_WDOG4] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_CCM_CLKO1] = SM_SCMI_PERM_ALL, \
+        .pinPerms[DEV_SM_PIN_CCM_CLKO2] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_ENET1_MDC] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_ENET1_MDIO] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_ENET1_RD0] = SM_SCMI_PERM_ALL, \
