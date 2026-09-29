@@ -1054,6 +1054,31 @@ bool PF09_XrstStbyEnable(const PF09_Type *dev, bool xrstEn)
 }
 
 /*--------------------------------------------------------------------------*/
+/* Enable/Disable Spread spectrum                                           */
+/*--------------------------------------------------------------------------*/
+bool PF09_SpreadSpectrumEnable(const PF09_Type *dev, bool spreadEn)
+{
+    uint8_t regVal;
+    bool rc;
+
+    if (spreadEn)
+    {
+        /* Set FSS_EN bit and Clear FSS_MODE (triangular mode)*/
+        regVal = 0x10U;
+    }
+    else
+    {
+        /* Clear FSS_EN */
+        regVal = 0x0U;
+    }
+
+    rc = PF09_PmicWrite(dev, PF09_REG_FREQ_CTRL, regVal, 0x30U);
+
+    /* Return status */
+    return rc;
+}
+
+/*--------------------------------------------------------------------------*/
 /* Save and clear fault flags                                               */
 /*--------------------------------------------------------------------------*/
 bool PF09_FaultFlags(const PF09_Type *dev, uint32_t *flags, bool clear)
