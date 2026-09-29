@@ -201,6 +201,14 @@ int32_t BRD_SM_SerialDevicesInit(void)
             }
         }
 
+        if (status == SM_ERR_SUCCESS)
+        {
+            if (!PF09_SpreadSpectrumEnable(&g_pf09Dev, true))
+            {
+                status = SM_ERR_HARDWARE_ERROR;
+            }
+        }
+
         /* Save and clear any fault flags */
         if (status == SM_ERR_SUCCESS)
         {
