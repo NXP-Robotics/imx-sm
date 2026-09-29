@@ -659,6 +659,20 @@ static int32_t BRD_SM_InitComplete(uint32_t mSel)
        enabled a power domain, configure a clock SSC, clock rate, or pin.
        Not safe to call LMM functions! */
 
+    /* Enable spread spectrum on the configured PLLs */
+
+    /* Do not enable CLOCK_SRC_SYSPLL1_VCO because system get unstable
+       CLOCK_SourceSetSsc(CLOCK_SRC_SYSPLL1_VCO,   1, 33 * CLOCK_K_HZ, 1U);
+    */
+
+    /* CLOCK_SRC_DRAMPLL_VCO cannot be activated in system-manager and must
+       be activated in imx-oei
+    */
+    CLOCK_SourceSetSsc(CLOCK_SRC_AUDIOPLL1_VCO, 1, 33 * CLOCK_K_HZ, 1U);
+    CLOCK_SourceSetSsc(CLOCK_SRC_AUDIOPLL2_VCO, 1, 33 * CLOCK_K_HZ, 1U);
+    CLOCK_SourceSetSsc(CLOCK_SRC_VIDEOPLL1_VCO, 1, 33 * CLOCK_K_HZ, 1U);
+    CLOCK_SourceSetSsc(CLOCK_SRC_HSIOPLL_VCO,   1, 33 * CLOCK_K_HZ, 1U);
+    CLOCK_SourceSetSsc(CLOCK_SRC_LDBPLL_VCO,    1, 33 * CLOCK_K_HZ, 1U);
+
     return SM_ERR_SUCCESS;
 }
-

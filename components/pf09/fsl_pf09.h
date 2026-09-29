@@ -228,6 +228,7 @@ typedef struct
 #define PF09_REG_LDO1_PWRUP     0x48U  /*!< LDO1 power-up config */
 #define PF09_REG_LDO2_PWRUP     0x49U  /*!< LDO2 power-up config */
 #define PF09_REG_LDO3_PWRUP     0x4AU  /*!< LDO3 power-up config */
+#define PF09_REG_FREQ_CTRL      0x4CU  /*!< Frequency ctrl */
 #define PF09_REG_WD_CTRL1       0x4EU  /*!< Watchdog ctrl 1 */
 #define PF09_REG_WD_CTRL2       0x4FU  /*!< Watchdog ctrl 2 */
 #define PF09_REG_WD_CFG1        0x50U  /*!< Watchdog config 1 */
@@ -560,6 +561,16 @@ bool PF09_MonitorEnable(const PF09_Type *dev, uint8_t monitor, bool monEn);
  * @return True if successful.
  */
 bool PF09_XrstStbyEnable(const PF09_Type *dev, bool xrstEn);
+
+/*!
+ * Enable/Disable Spread spectrum
+ *
+ * @param[in]     dev        Device info.
+ * @param[in]     spreadEn   Enable/Disable Spread spectrum
+ *
+ * @return True if successful.
+ */
+bool PF09_SpreadSpectrumEnable(const PF09_Type *dev, bool spreadEn);
 
 /*!
  * Save and clear fault flags
