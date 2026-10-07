@@ -81,10 +81,12 @@
         .clkPerms[DEV_SM_CLK_LPTMR2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART2] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART5] = SM_SCMI_PERM_ALL, \
+        .clkPerms[DEV_SM_CLK_LPUART6] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART7] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_M7SYSTICK] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_TPM4] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_TPM5] = SM_SCMI_PERM_ALL, \
+        .clkPerms[DEV_SM_CLK_TPM6] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_TSTMR2] = SM_SCMI_PERM_ALL, \
         .cpuPerms[DEV_SM_CPU_M7P] = SM_SCMI_PERM_ALL, \
         .ctrlPerms[DEV_SM_CTRL_ADC_TEST] = SM_SCMI_PERM_ALL, \
@@ -140,6 +142,9 @@
         .daisyPerms[DEV_SM_DAISY_LPUART5_CTS] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART5_RXD] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART5_TXD] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_LPUART6_CTS] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_LPUART6_RXD] = SM_SCMI_PERM_ALL, \
+        .daisyPerms[DEV_SM_DAISY_LPUART6_TXD] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART7_RXD] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART7_TXD] = SM_SCMI_PERM_ALL, \
         .faultPerms[DEV_SM_FAULT_M7_LOCKUP] = SM_SCMI_PERM_ALL, \
@@ -159,6 +164,7 @@
         .perlpiPerms[DEV_SM_PERLPI_GPIO5] = SM_SCMI_PERM_NONE, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART2] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART5] = SM_SCMI_PERM_ALL, \
+        .perlpiPerms[DEV_SM_PERLPI_LPUART6] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART7] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_WDOG5] = SM_SCMI_PERM_ALL, \
         .pinPerms[DEV_SM_PIN_CCM_CLKO2] = SM_SCMI_PERM_ALL, \
@@ -378,7 +384,6 @@
         .clkPerms[DEV_SM_CLK_LPUART1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART3] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART4] = SM_SCMI_PERM_ALL, \
-        .clkPerms[DEV_SM_CLK_LPUART6] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART7] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_LPUART8] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_MIPIPHYCFG] = SM_SCMI_PERM_ALL, \
@@ -395,7 +400,6 @@
         .clkPerms[DEV_SM_CLK_SAI5] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_SPDIF] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_TPM2] = SM_SCMI_PERM_ALL, \
-        .clkPerms[DEV_SM_CLK_TPM6] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_USBPHYBURUNIN] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_USDHC1] = SM_SCMI_PERM_ALL, \
         .clkPerms[DEV_SM_CLK_USDHC2] = SM_SCMI_PERM_ALL, \
@@ -438,9 +442,6 @@
         .daisyPerms[DEV_SM_DAISY_LPUART4_CTS] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART4_RXD] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART4_TXD] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_LPUART6_CTS] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_LPUART6_RXD] = SM_SCMI_PERM_ALL, \
-        .daisyPerms[DEV_SM_DAISY_LPUART6_TXD] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART7_RXD] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_LPUART7_TXD] = SM_SCMI_PERM_ALL, \
         .daisyPerms[DEV_SM_DAISY_NETC_EMDC] = SM_SCMI_PERM_ALL, \
@@ -514,7 +515,6 @@
         .perlpiPerms[DEV_SM_PERLPI_LPUART1] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART3] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART4] = SM_SCMI_PERM_ALL, \
-        .perlpiPerms[DEV_SM_PERLPI_LPUART6] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART7] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_LPUART8] = SM_SCMI_PERM_ALL, \
         .perlpiPerms[DEV_SM_PERLPI_WDOG3] = SM_SCMI_PERM_ALL, \
