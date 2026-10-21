@@ -38,12 +38,30 @@
 #include "fsl_device_registers.h"
 #include "fsl_lpuart.h"
 #include "brd_sm.h"
+#ifdef DEBUG_CONSOLE_RTT
+#include "sm_rtt.h"
+#endif
 
 #undef errno
 extern int errno;
 
 int _read(int file, char *buf, int len)
 {
+#ifdef DEBUG_CONSOLE_RTT
+    if (file == STDIN_FILENO)
+    {
+        /* Blocking and CR/LF handled by the RTT console. No echo, the
+         * RTT host client echoes typed input locally */
+        SM_RTT_ConsoleRead((uint8_t*) buf, (uint32_t) len);
+
+        return len;
+    }
+    else
+    {
+        errno = EBADF;
+        return -1;
+    }
+#else
     const board_uart_config_t *uartConfig = BOARD_GetDebugUart();
 
     if ((uartConfig->base != NULL) && (file == STDIN_FILENO))
@@ -66,10 +84,25 @@ int _read(int file, char *buf, int len)
         errno = EBADF;
         return -1;
     }
+#endif
 }
 
 int _write(int file, char *buf, int len)
 {
+#ifdef DEBUG_CONSOLE_RTT
+    if ((file == STDOUT_FILENO) || (file == STDERR_FILENO))
+    {
+        /* LF to CR/LF expansion handled by the RTT console */
+        SM_RTT_ConsoleWrite((const uint8_t*) buf, (uint32_t) len);
+
+        return len;
+    }
+    else
+    {
+        errno = EBADF;
+        return -1;
+    }
+#else
     int ret_len = len;
     uint8_t cr = '\r';
 
@@ -94,6 +127,7 @@ int _write(int file, char *buf, int len)
         errno = EBADF;
         return -1;
     }
+#endif
 }
 
 void _exit(int status)

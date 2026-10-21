@@ -74,6 +74,22 @@ ifneq ($(M),0)
 	INC_LIBC ?= 1
 	TEST_MODE ?= 1
 endif
+# Debug console transport. Must come before the INC_LIBC default below, as
+# the RTT console uses the libc stdio stubs.
+#   uart = LPUART (default)
+#   rtt  = console over a SWD debug probe, frees the debug LPUART.
+#          Host side is JLinkRTTClient or "pyocd rtt".
+ifdef c
+    CONSOLE := $(c)
+endif
+CONSOLE ?= uart
+ifeq ($(CONSOLE),rtt)
+	FLAGS += -DDEBUG_CONSOLE_RTT
+	INC_LIBC ?= 1
+else ifneq ($(CONSOLE),uart)
+$(error Unsupported CONSOLE=$(CONSOLE), expected "uart" or "rtt")
+endif
+
 INC_LIBC ?= 0
 DEBUG ?= 0
 FLAGS += -DMONITOR_MODE=$(M)
@@ -150,6 +166,11 @@ endif
 # Include monitor
 ifneq ($(M),0)
 	include $(ROOT_DIR)/sm/utilities/monitor/Makefile
+endif
+
+# Include debugger (SWD) based console transport
+ifeq ($(CONSOLE),rtt)
+	include $(ROOT_DIR)/utilities/rtt/Makefile
 endif
 
 # Include tests
