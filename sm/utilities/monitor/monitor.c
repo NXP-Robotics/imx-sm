@@ -52,13 +52,17 @@
 #ifndef SIMU
 #include "fsl_lpuart.h"
 #endif
+#ifdef DEBUG_CONSOLE_RTT
+#include "sm_rtt.h"
+#endif
 
 /* Defines */
 
 #define HIST_SIZE      5U
 #define MAXLINE        128U
 #define ESC            '\x1B'
-#ifdef SIMU
+#if defined(SIMU) || defined(DEBUG_CONSOLE_RTT)
+/* Terminals on the host side (pty, RTT viewer) send 0x7F for backspace */
 #define BS             '\x7F'
 #define DEL            '\x7E'
 #else
@@ -66,7 +70,13 @@
 #define DEL            '\x7F'
 #endif
 
+#ifdef DEBUG_CONSOLE_RTT
+/* The RTT host does not echo control characters, so the backspace that
+ * moves the cursor back has to be sent by us */
+#define DELETE_CHAR()     printf("\b \b")
+#else
 #define DELETE_CHAR()     printf(" \b")
+#endif
 #define DISPLAY_PROMPT()  printf(">$ ")
 #define ERASE_LINE()      printf("%c[2K\r", ESC)
 #define CURSOR_FORWARD()  printf("%c[1C", ESC)
@@ -286,6 +296,8 @@ bool MONITOR_CharPending(void)
 {
 #if defined(SIMU)
     return false;
+#elif defined(DEBUG_CONSOLE_RTT)
+    return SM_RTT_ConsoleCharPending();
 #else
     const board_uart_config_t *uartConfig = BOARD_GetDebugUart();
     bool rtn = false;
@@ -383,6 +395,13 @@ static int32_t MONITOR_CharGet(char *buf, uint32_t len, bool echo)
     *buf = MONITOR_RawCharGet(echo);
 
     return 1;
+#elif defined(DEBUG_CONSOLE_RTT)
+    /* Blocking and CR/LF handled by the RTT console. Echo is done by
+     * the host, so the echo flag is unused here */
+    (void) echo;
+    SM_RTT_ConsoleRead((uint8_t*) buf, len);
+
+    return (int32_t) len;
 #else
     const board_uart_config_t *uartConfig = BOARD_GetDebugUart();
     int32_t rtn;

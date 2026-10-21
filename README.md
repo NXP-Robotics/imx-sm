@@ -91,6 +91,47 @@ Then copy the resulting binary image file, *build/mx95evk/m33_image.bin*, to the
 it to the boot device, and boot the board. The SM will display a debug monitor prompt on the M33 debug
 UART.
 
+## Debug console over a SWD debugger (no UART)
+
+On boards where no UART is available for the SM, the debug console (banner, `printf`, and the
+interactive debug monitor) can be carried over an attached SWD debug probe instead. Append
+`c=rtt` to the build:
+
+    make config=mx95evk c=rtt m=1 all
+
+This uses a pair of RAM ring buffers laid out to match the SEGGER RTT control block, which the
+probe reads and writes using background memory access. No pins, no SWO, and no trace clock are
+required, and the debug LPUART is left entirely unconfigured (neither the pads nor the peripheral
+are touched) so it stays free for another owner. The default remains `c=uart`, so existing builds
+are unaffected.
+
+Attach from the host with either:
+
+    JLinkRTTClient
+    pyocd rtt -t mimx95_cm33_mx25um -a 0x20020000 -s 0x20000
+
+pyOCD must be given a search range covering the SM data region, as the region it uses by default
+(`codetcm` at `0x1ffc0000`) does not contain the control block and it reports
+`Control block not found`. The range above is deliberately not the whole TCM: the address space
+below the data region is not all accessible and reading it aborts with `Memory transfer fault`.
+
+Notes:
+
+- Output is best effort. Nothing drains the buffer unless a host is reading it, so a full buffer
+  is waited on for at most `SM_RTT_DRAIN_USEC` (default 10 ms per write) and only once a host has
+  been seen consuming data. Anything that still does not fit is dropped, so with no probe attached
+  output is discarded and the SM never stalls.
+- `SM_RTT_UP_SIZE` (default 4KB) gives the host room to keep up, so the buffer does not have to
+  hold a whole command's output. Verbose commands emit more than this in one burst (`clock.r` is
+  around 9KB).
+- Attaching or detaching a probe at any time is safe.
+- Echo is done by the host, not the SM, which is the RTT convention. `JLinkRTTClient` has
+  `-LocalEcho On` by default; pass `-LocalEcho Off` if characters appear twice.
+- Waiting for input polls rather than sleeping, as the UART console does. A `WFI` would commit the
+  CPU to the sleep mode armed in the GPC, stopping the SysTick that refreshes the watchdog.
+- Use `m=1` for interactive use. `m=2` ("press key to enter monitor") works in RUN mode, but the
+  keypress is missed while the system is in a deeper sleep state, where the tick is stopped.
+
 The above config is for Linux+M7 system testing. Another config is delivered for MCUXpresso testing:
 
     make config=mx95alt all
